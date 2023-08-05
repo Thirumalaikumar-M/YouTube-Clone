@@ -1,6 +1,5 @@
 import { Box, CardContent, CardMedia, Typography } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 
 const ChannelCard = ({ channelDetail }) => {
   return (
@@ -17,44 +16,40 @@ const ChannelCard = ({ channelDetail }) => {
         marginTop: "-110px",
       }}
     >
-      <Link to={`/channel/${channelDetail?.id?.channelId}`}>
-        <CardContent
+      <CardContent
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          color: "#fff",
+        }}
+      >
+        <CardMedia
+          image={channelDetail?.snippet?.thumbnails?.high?.url}
+          alt={channelDetail?.snippet?.title}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            color: "#fff",
+            borderRadius: "50%",
+            height: "180px",
+            width: "180px",
+            mb: 2,
+            border: "1px solid #e3e3e3",
           }}
-        >
-          <CardMedia
-            image={channelDetail?.snippet?.thumbnails?.high?.url}
-            alt={channelDetail?.snippet?.title}
-            sx={{
-              borderRadius: "50%",
-              height: "180px",
-              width: "180px",
-              mb: 2,
-              border: "1px solid #e3e3e3",
-            }}
-          />
-          <Typography variant="h6">
-            {channelDetail?.snippet?.title}{" "}
-            <CheckCircle sx={{ fontSize: "14px", color: "gray", ml: "5px" }} />
+        />
+        <Typography variant="h6">
+          {channelDetail?.snippet?.title}{" "}
+          <CheckCircle sx={{ fontSize: "14px", color: "gray", ml: "5px" }} />
+        </Typography>
+        {channelDetail?.statistics?.subscriberCount && (
+          <Typography sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}>
+            {parseInt(
+              channelDetail?.statistics?.subscriberCount
+            ).toLocaleString("en-US")}{" "}
+            Subscribers
           </Typography>
-          {channelDetail?.statistics?.subscriberCount && (
-            <Typography
-              sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
-            >
-              {parseInt(
-                channelDetail?.statistics?.subscriberCount
-              ).toLocaleString("en-US")}{" "}
-              Subscribers
-            </Typography>
-          )}
-        </CardContent>
-      </Link>
+        )}
+      </CardContent>
     </Box>
   );
 };
